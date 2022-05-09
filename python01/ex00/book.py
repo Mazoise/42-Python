@@ -1,44 +1,46 @@
-class Recipe:
+import datetime
+from recipe import Recipe
 
-    def __init__(self, name, lvl, time, ing, desc, meal):
+
+class Book:
+
+    def __init__(self, name):
         if type(name) == str:
             self.name = name
         else:
-            print("Input Error: Name should be a string\n")
+            print("Input Error : Name should be a string")
             return
-        if type(lvl) == int and lvl >=1 and lvl <= 5:
-            self.cooking_lvl = lvl
-        else:
-            print("Input Error: Cooking level should be a number between 1 and 5\n")
-            return
-        if type(time) == int and time >= 0:
-            self.cooking_time = time
-        else:
-            print("Input Error: Time should be a positive number\n")
-            return
-        if type(ing) == list and all(type(i) is str for i in ing):
-            self.ingredients = ing
-        else:
-            print("Input Error: Ingredients should be in a list\n")
-            return
-        if desc is None or type(desc) == str:
-            self.description = desc
-        else:
-            print("Input Error: If you want to add a description it should be a string\n")
-            return
-        if type(meal) == str and (meal == "starter" or meal == "lunch" or meal == "dessert"):
-            self.recipe_type = meal
-        else:
-            print("Input Error: Recipe type should be either \"meal\", \"lunch\" or \"dessert\"\n")
-            return
+        self.recipe_list = {
+            'starter': {},
+            'lunch': {},
+            'dessert': {},
+        }
+        self.last_update = datetime.datetime.today()
+        self.creation_date = datetime.datetime.today()
 
-    def __str__(self):
-        """Return the string to print with the recipe info"""
-        txt = ""
-        txt += "\nRecipe : " + self.name
-        txt += "\nRecipe type : " + self.recipe_type
-        txt += "\nCooking level : " + str(self.cooking_lvl)
-        txt += " / 5\nCooking time : " + str(self.cooking_time)
-        txt += " min\nIngredients : " + str(self.ingredients)
-        txt += "\nDescription: " + self.description + "\n"
-        return txt
+    def get_recipe_by_name(self, name):
+        """Print a recipe with the name `name` and return the instance"""
+        for rdict in self.recipe_list.values():
+            for rname, rrecipe in rdict.items():
+                if rname == name:
+                    print(str(rrecipe))
+                    return rrecipe
+        print("Input Error: No such recipe\n")
+        return None
+
+    def get_recipes_by_types(self, recipe_type):
+        """Get all recipe names for a given recipe_type """
+        try:
+            for name in self.recipe_list[recipe_type].keys():
+                print(name)
+        except KeyError:
+            print("Input Error: Wrong type of recipe\n")
+
+    def add_recipe(self, recipe):
+        """Add a recipe to the book and update last_update"""
+        if type(recipe) is Recipe:
+            self.recipe_list[recipe.recipe_type][recipe.name] = recipe
+        else:
+            print("Input Error: Not a recipe\n")
+            return
+        self.last_update = datetime.datetime.today()

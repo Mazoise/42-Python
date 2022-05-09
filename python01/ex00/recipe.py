@@ -1,36 +1,32 @@
 class Recipe:
 
     def __init__(self, name, lvl, time, ing, desc, meal):
-        if type(name) == str:
+        try:
+            assert len(name) and type(name) == str, \
+                "Name should be a string"
             self.name = name
-        else:
-            print("Input Error: Name should be a string\n")
-            return
-        if type(lvl) == int and lvl >=1 and lvl <= 5:
+            assert type(lvl) == int and lvl >= 1 and lvl <= 5, \
+                "Cooking level should be an integer between 1 and 5"
             self.cooking_lvl = lvl
-        else:
-            print("Input Error: Cooking level should be a number between 1 and 5\n")
-            return
-        if type(time) == int and time >= 0:
+            assert type(time) == int and time >= 0, \
+                "Cooking time should be a positive integer"
             self.cooking_time = time
-        else:
-            print("Input Error: Time should be a positive number\n")
-            return
-        if type(ing) == list and all(type(i) is str for i in ing):
+            assert (len(ing) and type(ing) == list
+                    and all(type(i) is str for i in ing)), \
+                "Ingredients should be a list of strings"
             self.ingredients = ing
-        else:
-            print("Input Error: Ingredients should be in a list\n")
-            return
-        if desc is None or type(desc) == str:
+            assert desc is None or type(desc) == str, \
+                "Description should be empty or a string"
             self.description = desc
-        else:
-            print("Input Error: If you want to add a description it should be a string\n")
-            return
-        if type(meal) == str and (meal == "starter" or meal == "lunch" or meal == "dessert"):
+            assert (len(meal) and type(meal) == str
+                    and (meal == "starter" or meal == "lunch"
+                         or meal == "dessert")), \
+                "Meal should be a string and be either 'starter',\
+ 'lunch' or 'dessert'"
             self.recipe_type = meal
-        else:
-            print("Input Error: Recipe type should be either \"meal\", \"lunch\" or \"dessert\"\n")
-            return
+        except AssertionError as e:
+            print("Input Error: ", e)
+            raise e
 
     def __str__(self):
         """Return the string to print with the recipe info"""
