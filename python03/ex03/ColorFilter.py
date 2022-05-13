@@ -114,7 +114,7 @@ class ColorFilter:
         except Exception:
             return None
 
-    def to_grayscale(self, array, filter, *args, **kwargs):
+    def to_grayscale(self, array, filter, weight=None):
         """
         Applies a grayscale filter to the image received as a numpy array.
         For filter = ’mean’/’m’: performs the mean of RBG channels.
@@ -140,12 +140,12 @@ class ColorFilter:
                 return (ret if np.shape(array)[2] == 3
                         else np.dstack((ret, array[:, :, 3])))
             elif filter is 'w' or filter is 'weight' or filter is 'weighted':
-                if sum(args[0]) > 1.00000000001 or sum(args[0]) < 0.999999999:
+                if sum(weight) > 1.00000000001 or sum(weight) < 0.999999999:
                     return None
                 for i, line in enumerate(array):
                     for j, pixel in enumerate(line):
                         ret[i][j] = sum(pix * coeff for pix, coeff
-                                        in zip(pixel, args[0]))
+                                        in zip(pixel, weight))
                 ret = np.dstack((ret, ret, ret))
                 return (ret if np.shape(array)[2] == 3
                         else np.dstack((ret, array[:, :, 3])))

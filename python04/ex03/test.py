@@ -1,8 +1,7 @@
 from FileLoader import FileLoader
-
+from HowManyMedals import how_many_medals
 
 fl = FileLoader()
 df = fl.load("../asserts/athlete_events.csv")
-print(type(df))
-fl.display(df, 11)
-fl.display(df, -8)
+
+print(how_many_medals(df, 'Kjetil Andr Aamodt'))

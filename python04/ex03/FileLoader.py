@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 
 class FileLoader:
 
-    def __init__(self):
-        '''INIT'''
+    def __init__(self) -> None:
+        pass
 
     def load(self, path):
         try:
