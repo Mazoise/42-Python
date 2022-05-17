@@ -20,9 +20,9 @@ class FileLoader:
     def display(self, df, n):
         try:
             if n >= 0:
-                print(df.head(n))
+                print(df.loc[:,1:].head(n))
             else:
-                print(df.tail(-n))
+                print(df[:,1:].tail(-n))
         except Exception as e:
             print("Error :", e)
             return None
