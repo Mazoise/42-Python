@@ -17,8 +17,8 @@ def predict_(x, theta):
     if (type(x) != np.ndarray or type(theta) != np.ndarray
        or len(x) == 0 or len(theta) == 0
        or len(x.shape) != 2 or len(theta.shape) != 2
-       or theta.shape[1] != 1
-       or theta.shape[0] != x.shape[1] + 1):
+       or x.shape[1] != 1 or theta.shape[1] != 1
+       or theta.shape[0] != 2):
         return None
     try:
         x = add_intercept(x)

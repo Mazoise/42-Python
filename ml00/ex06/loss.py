@@ -14,7 +14,8 @@ def loss_elem_(y, y_hat):
     Raises:
         This function should not raise any Exception.
     """
-    if type(y) != np.ndarray or type(y_hat) != np.ndarray:
+    if (type(y) != np.ndarray or type(y_hat) != np.ndarray
+        or len(y.shape) != 2 or y.shape != y_hat.shape or y.shape[1] != 1):
         return None
     try:
         return (y_hat - y) ** 2
@@ -35,8 +36,6 @@ def loss_(y, y_hat):
     Raises:
         This function should not raise any Exception.
     """
-    if type(y) != np.ndarray or type(y_hat) != np.ndarray:
-        return None
     try:
         return np.sum(loss_elem_(y, y_hat)) / (2 * len(y))
     except Exception:

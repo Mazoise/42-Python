@@ -1,5 +1,6 @@
 from matplotlib import pyplot as plt
 import numpy as np
+from prediction import predict_
 
 def plot(x, y, theta):
     """Plot the data and prediction line from three non-empty numpy.array.
@@ -22,7 +23,7 @@ def plot(x, y, theta):
         return None
     try:
         plt.plot(x, y, 'o')
-        plt.plot(x, theta[0] + theta[1] * x)
+        plt.plot(x, predict_(x, theta))
         plt.show()
     except Exception:
         return
