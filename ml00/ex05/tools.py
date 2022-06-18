@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def add_intercept(x):
     """Adds a column of 1’s to the non-empty numpy.array x.
     Args:

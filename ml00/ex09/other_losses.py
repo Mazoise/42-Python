@@ -1,6 +1,7 @@
 import numpy as np
 import math
 
+
 def mse_(y, y_hat):
     """
     Description:
@@ -23,6 +24,7 @@ def mse_(y, y_hat):
     except Exception:
         return None
 
+
 def rmse_(y, y_hat):
     """
     Description:
@@ -40,6 +42,7 @@ def rmse_(y, y_hat):
         return math.sqrt(mse_(y, y_hat))
     except Exception:
         return None
+
 
 def mae_(y, y_hat):
     """
@@ -63,6 +66,7 @@ def mae_(y, y_hat):
     except Exception as e:
         return None
 
+
 def r2score_(y, y_hat):
     """
     Description:
@@ -77,6 +81,8 @@ def r2score_(y, y_hat):
         This function should not raise any Exception.
     """
     try:
-        return 1 - (np.swapaxes(y_hat - y, 0, 1).dot(y_hat - y) / (np.swapaxes(y - y.mean(0), 0, 1).dot(y - y.mean(0))))[0][0]
+        return 1 - (np.swapaxes(y_hat - y, 0, 1).dot(y_hat - y)
+                    / (np.swapaxes(y - y.mean(0),
+                       0, 1).dot(y - y.mean(0))))[0][0]
     except Exception:
         return None

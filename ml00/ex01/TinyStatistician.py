@@ -1,6 +1,7 @@
 import numpy as np
 from numbers import Number
 
+
 class TinyStatistician:
 
     def __init__(self) -> None:
@@ -9,9 +10,10 @@ class TinyStatistician:
     def check_format(self, x, p=0.0):
         assert type(x) == list or type(x) == np.ndarray, "not a list"
         assert len(x) > 0, "empty list"
-        tmp = np.array(x, dtype = float)
+        tmp = np.array(x, dtype=float)
         if len(np.shape(tmp)) > 1:
-            assert np.shape(tmp)[0] == 1 or np.shape(tmp)[1] == 1, "not a vector"
+            assert (np.shape(tmp)[0] == 1 or np.shape(tmp)[1] == 1,
+                    "not a vector")
             tmp = tmp.reshape(np.shape(tmp)[0] * np.shape(tmp)[1])
         assert isinstance(p, Number), "not a number"
         assert 0 <= p <= 100, "percentile out of range"
@@ -29,7 +31,7 @@ class TinyStatistician:
 
     def quartile(self, x):
         tmp = self.percentile(x, 25)
-        return([tmp, self.percentile(x, 75)] if tmp != None else None)
+        return([tmp, self.percentile(x, 75)] if tmp is not None else None)
 
     def percentile(self, x, p):
         try:

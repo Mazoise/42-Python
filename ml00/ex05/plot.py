@@ -2,6 +2,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 from prediction import predict_
 
+
 def plot(x, y, theta):
     """Plot the data and prediction line from three non-empty numpy.array.
     Args:

@@ -3,6 +3,7 @@ from prediction import predict_
 from loss import loss_, loss_elem_
 from plot import plot
 
+
 x1 = np.array([[0.], [1.], [2.], [3.], [4.]])
 theta1 = np.array([[2.], [4.]])
 y_hat1 = predict_(x1, theta1)

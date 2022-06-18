@@ -2,7 +2,8 @@ import numpy as np
 
 
 def loss_(y, y_hat):
-    """Computes the half mean squared error of two non-empty numpy.array, without any for loop.
+    """Computes the half mean squared error of two non-empty numpy.array,
+       without any for loop.
         The two arrays must have the same dimensions.
     Args:
         y: has to be an numpy.array, a vector.
@@ -19,8 +20,8 @@ def loss_(y, y_hat):
        or len(y.shape) != 2 or y.shape != y_hat.shape
        or y.shape[1] != 1):
         return None
-    # try:
-    # tmp = np.swapaxes(y_hat - y, 0, 1)
-    return (np.swapaxes(y_hat - y, 0, 1).dot(y_hat - y) / (2 * len(y)))[0][0]
-    # except Exception:
-    #     return None
+    try:
+        return (np.swapaxes(y_hat - y, 0, 1).dot(y_hat - y)
+                / (2 * len(y)))[0][0]
+    except Exception:
+        return None

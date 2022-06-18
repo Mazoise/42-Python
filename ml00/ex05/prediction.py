@@ -1,6 +1,7 @@
 import numpy as np
 from tools import add_intercept
 
+
 def predict_(x, theta):
     """Computes the vector of prediction y_hat from two non-empty numpy.array.
     Args:

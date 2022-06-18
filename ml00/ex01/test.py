@@ -13,8 +13,10 @@ print("percentile 83 =", stat.percentile(a, 83))
 print("var =", stat.var(a))
 print("std =", stat.std(a))
 
-print("\nTEST 2 : a = np.array([[1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [1], [2], [3], [4], [5]])")
-a = np.array([[1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [1], [2], [3], [4], [5]])
+print("\nTEST 2 : a = np.array([[1], [2], [3], [4], [5], [6], \
+[7], [8], [9], [10], [1], [2], [3], [4], [5]])")
+a = np.array([[1], [2], [3], [4], [5], [6], [7],
+             [8], [9], [10], [1], [2], [3], [4], [5]])
 print("mean =", stat.mean(a))
 print("median =", stat.median(a))
 print("quartile =", stat.quartile(a))
