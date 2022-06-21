@@ -1,8 +1,10 @@
 from prediction import predict_
 import numpy as np
 
+
 def simple_gradient(x, y, theta):
-    """Computes a gradient vector from three non-empty numpy.array, without any for-loop.
+    """Computes a gradient vector from three non-empty numpy.array,
+       without any for-loop.
         The three arrays must have compatible shapes.
     Args:
         x: has to be an numpy.array, a vector of shape m * 1.
@@ -16,4 +18,5 @@ def simple_gradient(x, y, theta):
     Raises:
         This function should not raise any Exception.
     """
-    return [[np.sum(predict_(x, theta) - y) / len(x)], [np.sum((predict_(x, theta) - y) * x) / len(x)]]
+    return [[np.sum(predict_(x, theta) - y) / len(x)],
+            [np.sum((predict_(x, theta) - y) * x) / len(x)]]
