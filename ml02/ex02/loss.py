@@ -18,8 +18,8 @@ def loss_(y, y_hat):
     """
 
     if (type(y) != np.ndarray or type(y_hat) != np.ndarray
-        or len(y.shape) != 2 or y.shape != y_hat.shape
-        or y.shape[1] != 1):
+       or len(y.shape) != 2 or y.shape != y_hat.shape
+       or y.shape[1] != 1):
         print("TypeError in loss")
         return None
     try:
