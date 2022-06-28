@@ -25,7 +25,7 @@ mylr.alpha = 1.6e-4
 mylr.max_iter = 200000
 mylr.fit_(X, Y)
 
-print("theta after fit :\n", mylr.thetas)
+print("theta after fit :\n", mylr.theta)
 
 print("predict :\n", mylr.predict_(X))
 

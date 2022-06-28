@@ -6,5 +6,6 @@ source ~/.zshrc
 conda create --name 42AI-$USER python=3.7 jupyter pandas pycodestyle matplotlib
 conda info --envs
 conda activate 42AI-$USER
+pip install sklearn
 which python
 python -V

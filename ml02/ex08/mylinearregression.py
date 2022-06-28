@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import math
+from polynomial_model import add_polynomial_features
 
 
 class MyLinearRegression():
@@ -64,6 +65,13 @@ class MyLinearRegression():
             print("Error in loss: ", e)
             return None
 
+    def mse_(self, y, y_hat):
+        try:
+            return self.loss_(y, y_hat) * 2
+        except Exception as e:
+            print("Error in mse: ", e)
+            return None
+
     def gradient_(self, x, y):
         try:
             return (np.swapaxes(self.add_intercept_(x), 0, 1)
@@ -82,3 +90,18 @@ class MyLinearRegression():
         except Exception as e:
             print("Error in add_interceptor: ", e)
             return None
+
+    def plot_(self, x, y, xlabels=("x"), ylabel="y", units="units",
+              ycolor=("navy"), predcolor=("dodgerblue")):
+        for i in range(x.shape[1]):
+            plt.plot(x[:, i], y, 'o',
+                     label=units,
+                     color=ycolor[i])
+            plt.plot(x[:, i], self.predict_(x), '.',
+                     color=predcolor[i],
+                     label="Predicted " + units.lower())
+            plt.legend()
+            plt.xlabel(xlabels[i])
+            plt.ylabel(ylabel)
+            plt.grid()
+            plt.show()
