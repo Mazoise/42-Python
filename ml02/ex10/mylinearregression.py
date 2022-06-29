@@ -18,7 +18,13 @@ class MyLinearRegression():
         try:
             self.theta = self.theta.astype(float)
             for i in range(self.max_iter):
-                self.theta -= self.alpha * self.gradient_(x, y)
+                try:
+                    self.theta -= self.alpha * self.gradient_(x, y)
+                    if (math.isnan(self.theta[0])):
+                        return self.theta
+                except RuntimeWarning:
+                    self.theta[0] = math.nan
+                    return self.theta
             return self.theta
         except Exception as e:
             print("Error in fit: ", e)

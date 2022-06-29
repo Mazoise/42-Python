@@ -16,6 +16,9 @@ def add_polynomial_features(x, power):
     Raises:
         This function should not raise any Exception.
     """
+    if (type(x) != np.ndarray or len(x) == 0 or type(power) != int):
+        print("TypeError in add_polynomial_features")
+        return None
     return np.swapaxes(np.squeeze(np.array([x ** i
                                             for i in range(1, power + 1)]), 2),
                        0, 1)
