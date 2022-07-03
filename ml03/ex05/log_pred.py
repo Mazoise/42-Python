@@ -24,4 +24,3 @@ def logistic_predict_(x, theta):
     except Exception as e:
         print("Error in logistic_predict", e)
         return None
-
