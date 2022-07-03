@@ -22,8 +22,8 @@ def vec_log_loss_(y, y_hat, eps=1e-15):
         return None
     try:
         ones = np.ones((y.shape[0], 1))
-        return (-(np.swapaxes(y, 0, 1).dot(np.log(y_hat + eps))
-                + np.swapaxes(ones - y, 0, 1).dot(np.log(ones - y_hat + eps)))
+        return (-(y.T.dot(np.log(y_hat + eps))
+                + (ones - y).T.dot(np.log(ones - y_hat + eps)))
                 / y.shape[0]).squeeze()
     except Exception as e:
         print("Error in log_loss", e)

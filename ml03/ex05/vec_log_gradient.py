@@ -1,19 +1,20 @@
 import numpy as np
 from log_pred import logistic_predict_
+from interceptor import add_intercept
 
 
-def log_gradient(x, y, theta):
+def vec_log_gradient(x, y, theta):
     """Computes a gradient vector from three non-empty numpy.ndarray,
-       with a for-loop. The three arrays must have compatible dimensions.
+       without any for-loop. The three arrays must have comp
     Args:
         x: has to be an numpy.ndarray, a matrix of shape m * n.
         y: has to be an numpy.ndarray, a vector of shape m * 1.
-        theta: has to be an numpy.ndarray, a vector of shape (n + 1) * 1.
+        theta: has to be an numpy.ndarray, a vector (n +1) * 1.
     Returns:
         The gradient as a numpy.ndarray, a vector of shape n * 1,
-        containing the result of the formula for all j.
+        containg the result of the formula for all j.
         None if x, y, or theta are empty numpy.ndarray.
-        None if x, y and theta do not have compatible dimensions.
+        None if x, y and theta do not have compatible shapes.
     Raises:
         This function should not raise any Exception.
     """
@@ -24,13 +25,7 @@ def log_gradient(x, y, theta):
         print("TypeError in log_gradient")
         return None
     try:
-        ret = np.zeros(theta.shape[0])
-        ret[0] = sum([(logistic_predict_(x[j].reshape(1, -1), theta) - y[j])
-                    for j in range(y.shape[0])]) / x.shape[0]
-        for i in range(x.shape[1]):
-            ret[i + 1] = sum([(logistic_predict_(x[j].reshape(1, -1), theta)
-                            - y[j]) * x[j][i] for j in range(y.shape[0])]) / x.shape[0]
-        return ret.reshape(-1, 1)
+        return np.dot(add_intercept(x).T, logistic_predict_(x, theta) - y) / x.shape[0]
     except Exception as e:
         print("Error in log_gradient", e)
         return None
