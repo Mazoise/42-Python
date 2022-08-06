@@ -1,11 +1,1 @@
-MYPATH="/goinfre/$USER/miniconda3"
-sh Miniconda3-latest-Linux-x86_64.sh -b -p $MYPATH
-$MYPATH/bin/conda init zsh
-$MYPATH/bin/conda config --set auto_activate_base false
-source ~/.zshrc
-conda create --name 42AI-$USER python=3.7 jupyter pandas pycodestyle matplotlib
-conda info --envs
-conda activate 42AI-$USER
-pip install sklearn
-which python
-python -V
+MYPATH="/goinfre/$USER/miniconda3" && sh Miniconda3-latest-Linux-x86_64.sh -b -p $MYPATH && $MYPATH/bin/conda init zsh && $MYPATH/bin/conda config --set auto_activate_base false && source ~/.zshrc && conda create -y --name 42AI-$USER python=3.7 jupyter pandas pycodestyle matplotlib && conda activate 42AI-$USER && pip install sklearn

@@ -58,6 +58,7 @@ class MyLogisticRegression():
             print("TypeError in log_loss")
             return None
         try:
+            print(self.loss_element_(y, y_hat, eps))
             return np.sum(self.loss_element_(y, y_hat, eps)) / y.shape[0]
         except Exception as e:
             print("Error in log_loss", e)

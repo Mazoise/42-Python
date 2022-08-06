@@ -13,13 +13,15 @@ class MyLinearRegression():
         self.alpha = alpha
         self.max_iter = max_iter
         self.theta = theta
+        self.bounds = None
 
     def fit_(self, x, y):
         try:
             self.theta = self.theta.astype(float)
+            y_norm = self.minmax_(y)
             for i in range(self.max_iter):
                 try:
-                    self.theta -= self.alpha * self.gradient_(x, y)
+                    self.theta -= self.alpha * self.gradient_(x, y_norm)
                     if (math.isnan(self.theta[0])):
                         return self.theta
                 except RuntimeWarning:
@@ -29,6 +31,21 @@ class MyLinearRegression():
         except Exception as e:
             print("Error in fit: ", e)
             return None
+
+    def minmax_(self, data):
+        if (type(data) != np.ndarray or len(data) == 0):
+            print("TypeError in minmax")
+            return None
+        try:
+            if self.bounds is None:
+                self.bounds = np.array([data.min(), data.max()])
+            return (data - self.bounds[0]) / (self.bounds[1] - self.bounds[0])
+        except Exception as e:
+            print("Error in minmax: ", e)
+            return None
+
+    def reverse_minmax_(self, data):
+        return data * (self.bounds[1] - self.bounds[0]) + self.bounds[0]
 
     def predict_theta_(self, x, theta):
         if (type(x) != np.ndarray or type(theta) != np.ndarray
@@ -102,7 +119,7 @@ class MyLinearRegression():
             plt.plot(x[:, i], y, 'o',
                      label=units,
                      color=ycolor[i])
-            plt.plot(x[:, i], self.predict_(x), '.',
+            plt.plot(x[:, i], self.reverse_minmax_(self.predict_(x)), '.',
                      color=predcolor[i],
                      label="Predicted " + units.lower())
             plt.legend()

@@ -15,4 +15,8 @@ def sigmoid_(x):
     if type(x) is not np.ndarray:
         print("TypeError in sigmoid")
         return None
-    return np.array(1 / (1 + np.exp(-x))).reshape(-1, 1)
+    try:
+        return np.array(1 / (1 + np.exp(-x))).reshape(-1, 1)
+    except Exception as e:
+        print("Error in sigmoid", e)
+        return None

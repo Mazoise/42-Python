@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from functools import partial
 from mylinearregression import MyLinearRegression as MyLR
 from polynomial_model import add_polynomial_features
 from data_spliter import data_spliter
@@ -41,7 +42,7 @@ poly_test_x = np.concatenate((add_polynomial_features(test_data[:, 0].reshape(-1
                               add_polynomial_features(test_data[:, 2].reshape(-1, 1), models[idx][2])), axis=1)
 lr[idx].theta = np.ones(poly_train_x.shape[1] + 1).reshape(-1, 1)
 lr[idx].alpha = 1
-lr[idx].max_iter = 1000000
+lr[idx].max_iter = 10000
 good_alpha = False
 while good_alpha == False:
     lr[idx].fit_(poly_train_x, train_y)
@@ -50,14 +51,14 @@ while good_alpha == False:
         lr[idx].theta = np.ones(poly_train_x.shape[1] + 1).reshape(-1, 1)
     else:
         good_alpha = True
-mse[idx] = lr[idx].mse_(lr[idx].predict_(poly_test_x), test_y)
-print("Model", idx + 1, " MSE : ", mse[idx], ", train MSE : ", lr[idx].mse_(lr[idx].predict_(poly_train_x), train_y))
+mse[idx] = lr[idx].mse_(lr[idx].reverse_minmax_(lr[idx].predict_(poly_test_x)), test_y)
+print("Model", idx + 1, " MSE : ", mse[idx], ", train MSE : ", lr[idx].mse_(lr[idx].reverse_minmax_(lr[idx].predict_(poly_train_x)), train_y))
 for var in range(3):
     test_x = test_data[:, var]
     train_x = train_data[:, var]
     plt.plot(train_x, train_y, 'or', label='Train data')
     plt.plot(test_x, test_y, 'og', label='Test data')
-    plt.plot(test_x, lr[idx].predict_(poly_test_x),
+    plt.plot(test_x, lr[idx].reverse_minmax_(lr[idx].predict_(poly_test_x)),
             '.', label='Model ' + str(idx + 1))
     plt.ylim([min(np.min(train_y), np.min(test_y)) - 100,
             max(np.max(train_y), np.max(test_y)) + 100])
@@ -69,5 +70,5 @@ for var in range(3):
     plt.show()
 
 plt.bar(list(map(str, models)), mse)
-plt.xticks(rotation=90)
+# plt.yscale('log')
 plt.show()
